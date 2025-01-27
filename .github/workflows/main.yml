@@ -1,0 +1,18 @@
+name: Deploy to Local Production
+
+on:
+  push:
+    branches:
+      - main # Cambia a la rama que desees monitorear
+
+jobs:
+  deploy:
+    runs-on: self-hosted 
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Sincronizar los cambios
+      run: |
+        robocopy . "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero" /MIR
+      shell: cmd
