@@ -6,7 +6,7 @@
     <title>Aplicación Básica Sin Base de Datos</title>
 </head>
 <body>
-<!---     <h1>Lista de Usuarios</h1>  --->
+    <h1>Lista de Usuarios</h1> 
     
 
     <!-- Mostrar usuarios -->
