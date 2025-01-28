@@ -49,6 +49,7 @@
                 </tr>
             </thead>
             <tbody>
+            <cfoutput>
                 <cfloop array="#application.usuarios#" index="usuario">
                     <tr>
                         <td>#arrayFind(application.usuarios, usuario)#</td>
@@ -56,6 +57,7 @@
                         <td>#usuario.correo#</td>
                     </tr>
                 </cfloop>
+                </cfoutput>
             </tbody>
         </table>
     </cfif>
