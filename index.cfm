@@ -3,76 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuarios</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <title>Aplicación Básica Sin Base de Datos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
+            background-color: #f8f9fa;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
         }
-        h1 {
-            font-size: 2.5em;
-            color: #007BFF;
-            margin-bottom: 20px;
-        }
-        .container {
+        h1, h2 {
             text-align: center;
-            background: white;
+            margin-top: 20px;
+            color: #343a40;
+        }
+        table {
+            margin: 20px auto;
+            width: 80%;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            text-align: center;
+            padding: 10px;
+        }
+        form {
+            width: 50%;
+            margin: 20px auto;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        button {
+            display: block;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div>
-        
-    <h1>Lista de Usuarios</h1> 
-    
+    <div class="container">
+        <h1>Lista de Usuarios</h1>
 
-    <!-- Mostrar usuarios -->
-    <cfif arrayLen(application.usuarios) eq 0>
-        <p>No hay usuarios registrados.</p>
-    <cfelse>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                </tr>
-            </thead>
-            <tbody>
-            <cfoutput>
-                <cfloop array="#application.usuarios#" index="usuario">
+        <!-- Mostrar usuarios -->
+        <cfif arrayLen(application.usuarios) eq 0>
+            <p class="text-center text-danger">No hay usuarios registrados.</p>
+        <cfelse>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
                     <tr>
-                        <td>#arrayFind(application.usuarios, usuario)#</td>
-                        <td>#usuario.nombre#</td>
-                        <td>#usuario.correo#</td>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
                     </tr>
-                </cfloop>
+                </thead>
+                <tbody>
+                <cfoutput>
+                    <cfloop array="#application.usuarios#" index="usuario">
+                        <tr>
+                            <td>#arrayFind(application.usuarios, usuario)#</td>
+                            <td>#usuario.nombre#</td>
+                            <td>#usuario.correo#</td>
+                        </tr>
+                    </cfloop>
                 </cfoutput>
-            </tbody>
-        </table>
-    </cfif>
+                </tbody>
+            </table>
+        </cfif>
 
-    <!-- Formulario para agregar usuario -->
-    <h2>Agregar Usuario</h2>
-    <form action="agregarUsuario.cfm" method="post">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <br>
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required>
-        <br>
-        <button type="submit">Agregar</button>
-    </form>
+        <!-- Formulario para agregar usuario -->
+        <h2>Agregar Usuario</h2>
+        <form action="agregarUsuario.cfm" method="post">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo:</label>
+                <input type="email" id="correo" name="correo" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
     </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
