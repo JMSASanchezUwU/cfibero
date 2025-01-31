@@ -15,9 +15,11 @@ jobs:
       - name: Sincronizar cambios en cfibero
         run: |
           robocopy . "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero" /MIR
+          exit 0
         shell: cmd
       
       - name: Sincronizar cambios en cfibero2
         run: |
           robocopy . "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero2" /MIR
+          exit 0
         shell: cmd
