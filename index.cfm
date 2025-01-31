@@ -42,8 +42,7 @@
 <body>
     <div class="container">
         <h1>Lista de Usuarios</h1>
-        <h1>Cambio de muestra</h1>
-       
+        
 
         <!-- Mostrar usuarios -->
         <cfif arrayLen(application.usuarios) eq 0>
