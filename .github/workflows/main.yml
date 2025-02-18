@@ -3,23 +3,38 @@ name: Deploy to Local Production
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   deploy:
-    runs-on: self-hosted 
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Sincronizar cambios en cfibero
+      - name: Backup current version
+        run: |
+          $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+          $backupDir = "C:\ColdFusion_Backups\$timestamp"
+          robocopy "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero" "$backupDir\cfibero" /MIR
+          robocopy "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero2" "$backupDir\cfibero2" /MIR
+          Write-Host "Backup creado en: $backupDir"
+          exit 0
+        shell: powershell
+
+      - name: Deploy new version
         run: |
           robocopy . "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero" /MIR
-          exit 0
-        shell: cmd
-      
-      - name: Sincronizar cambios en cfibero2
-        run: |
           robocopy . "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero2" /MIR
+          Write-Host "Despliegue exitoso!"
           exit 0
         shell: cmd
+
+      - name: Cleanup old backups
+        run: |
+          $limit = (Get-Date).AddDays(-30)
+          Get-ChildItem "C:\ColdFusion_Backups\" | 
+          Where-Object { $_.CreationTime -lt $limit } | 
+          Remove-Item -Recurse -Force
+          exit 0
+        shell: powershell
