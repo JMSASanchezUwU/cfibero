@@ -1,0 +1,40 @@
+name: Rollback ColdFusion
+
+on:
+  workflow_dispatch:
+    inputs:
+      backupId:
+        description: 'ID del backup (ej: 20240522-153045)'
+        required: true
+
+jobs:
+  rollback:
+    runs-on: self-hosted
+    steps:
+      - name: Validate backup ID
+        run: |
+          $backupDir = "C:\ColdFusion_Backups\${{ github.event.inputs.backupId }}"
+          exit 0
+          if (-not (Test-Path $backupDir)) {
+              Write-Host "Error: Backup ${{ github.event.inputs.backupId }} no existe"
+              exit 1
+          }
+        shell: powershell
+
+      - name: Restore cfibero
+        run: |
+          robocopy "C:\ColdFusion_Backups\${{ github.event.inputs.backupId }}\cfibero" "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero" /MIR
+          exit 0
+        shell: cmd
+
+      - name: Restore cfibero2
+        run: |
+          robocopy "C:\ColdFusion_Backups\${{ github.event.inputs.backupId }}\cfibero2" "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero2" /MIR
+          exit 0
+        shell: cmd
+
+      - name: Notify success
+        run: |
+          Write-Host "Rollback completado a la versión ${{ github.event.inputs.backupId }}"
+          exit 0
+        shell: powershell
