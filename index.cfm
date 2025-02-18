@@ -42,7 +42,6 @@
 <body>
     <div class="container">
         <h1>Lista de Usuarios</h1>
-        <h1>Sesion de casi puente</h1>
         
 
         <!-- Mostrar usuarios -->
