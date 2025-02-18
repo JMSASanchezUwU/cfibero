@@ -19,6 +19,7 @@ jobs:
           robocopy "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero" "$backupDir\cfibero" /MIR
           robocopy "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero2" "$backupDir\cfibero2" /MIR
           Write-Host "Backup creado en: $backupDir"
+          exit 0
         shell: powershell
 
       - name: Deploy new version
@@ -26,6 +27,7 @@ jobs:
           robocopy . "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero" /MIR
           robocopy . "C:\Users\jmsas\Downloads\ColdFusion\cfusion\wwwroot\cfibero2" /MIR
           Write-Host "Despliegue exitoso!"
+          exit 0
         shell: cmd
 
       - name: Cleanup old backups
@@ -34,4 +36,5 @@ jobs:
           Get-ChildItem "C:\ColdFusion_Backups\" | 
           Where-Object { $_.CreationTime -lt $limit } | 
           Remove-Item -Recurse -Force
+          exit 0
         shell: powershell
